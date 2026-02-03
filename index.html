@@ -13,6 +13,8 @@ body {
   justify-content: center;
   align-items: center;
   font-family: Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
 }
 
 .card {
@@ -42,6 +44,11 @@ button {
 .yes {
   background: #ff4d6d;
   color: white;
+  transition: all 0.3s;
+}
+
+.yes:hover {
+  animation: pulse 1s infinite;
 }
 
 .no {
@@ -50,9 +57,49 @@ button {
   left: 20px;
   top: 130px;
 }
+
+/* Pulse animation for Yes button */
+@keyframes pulse {
+  0% { transform: scale(1); background: #ff4d6d; }
+  50% { transform: scale(1.1); background: #ff1a4d; }
+  100% { transform: scale(1); background: #ff4d6d; }
+}
+
+/* Confetti fall animation */
+@keyframes fall {
+  to { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  color: red;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: floatUp 4s linear forwards;
+}
+
+/* Floating balloons (dark red and rose) */
+.balloon {
+  position: absolute;
+  font-size: 25px;
+  opacity: 0.9;
+  pointer-events: none;
+  animation: rise 6s linear forwards;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(1); opacity: 0.8; }
+  100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+}
+
+@keyframes rise {
+  0% { transform: translateY(100vh); }
+  100% { transform: translateY(-50px); }
+}
 </style>
 </head>
-
 <body>
 
 <div class="card">
@@ -62,27 +109,65 @@ button {
 </div>
 
 <script>
-const yourName = "Rahul"; // 👉 change name here
+const yourName = "Rahul"; // Change your name here
 document.getElementById("name").innerText = yourName;
 
+// "No" button dodge
 const noBtn = document.getElementById("noBtn");
-const card = document.querySelector(".card");
-
 function moveButton() {
-  const maxX = card.clientWidth - noBtn.offsetWidth - 10;
-  const maxY = card.clientHeight - noBtn.offsetHeight - 10;
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
 
   const x = Math.random() * maxX;
   const y = Math.random() * maxY;
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+  noBtn.style.transform = `rotate(${Math.random()*360}deg)`;
 }
-
 noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("touchstart", moveButton);
 
+// Floating red hearts continuously
+setInterval(() => {
+  const heart = document.createElement('div');
+  heart.innerText = '❤️';
+  heart.className = 'heart';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.fontSize = (10 + Math.random() * 30) + 'px';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 4000);
+}, 300);
+
+// Floating dark red and rose balloons continuously
+setInterval(() => {
+  const balloon = document.createElement('div');
+  balloon.className = 'balloon';
+  balloon.innerText = Math.random() > 0.5 ? '🎈' : '🌹';
+  balloon.style.color = Math.random() > 0.5 ? '#8B0000' : '#FF69B4'; // dark red or rose
+  balloon.style.left = Math.random() * window.innerWidth + 'px';
+  balloon.style.fontSize = (20 + Math.random() * 30) + 'px';
+  document.body.appendChild(balloon);
+  setTimeout(() => balloon.remove(), 6000);
+}, 500);
+
+// Yes button click
 function yesClick() {
+  // Confetti effect
+  for(let i=0;i<100;i++){
+    const confetti = document.createElement('div');
+    confetti.style.position = 'absolute';
+    confetti.style.width = confetti.style.height = Math.random()*10 + 'px';
+    confetti.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    confetti.style.top = '0px';
+    confetti.style.left = Math.random()*window.innerWidth + 'px';
+    confetti.style.borderRadius = '50%';
+    confetti.style.opacity = 0.7;
+    confetti.style.animation = `fall ${2+Math.random()*2}s linear forwards`;
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 4000);
+  }
+
   document.body.innerHTML = `
     <div style="
       display:flex;
@@ -95,13 +180,13 @@ function yesClick() {
       text-align:center;
       padding:20px;">
       <h1>💖 Yayyy ${yourName}! I knew it 😍💖</h1>
-      <img src="img4.jpg"
-           style="width:250px; margin-top:20px; border-radius:20px;">
-           <img src="img3.jpg"
-     style="width:250px; margin-top:20px; border-radius:20px; margin-right:10px;">
-           <h1>💖 Happy Valentines Day💖</h1>
-
-    </div>`;
+      <div style="display:flex; gap:10px; margin-top:20px;">
+        <img src="img4.jpg" style="width:250px; border-radius:20px;" alt="Valentine Image 1">
+        <img src="img3.jpg" style="width:250px; border-radius:20px;" alt="Valentine Image 2">
+      </div>
+      <h1>💖 Happy Valentines Day💖</h1>
+    </div>
+  `;
 }
 </script>
 
