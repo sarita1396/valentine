@@ -168,35 +168,63 @@ function yesClick() {
     setTimeout(() => confetti.remove(), 4000);
   }
 
- document.body.innerHTML = `
-  <div style="
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: #ff9a9e;
-    text-align: center;
-    padding: 20px;
-    box-sizing: border-box;">
-    
-    <h1 style="
-      font-size: 1.5rem;
-      color: white;
-      margin-bottom: 20px;
-      line-height: 1.3;">
-      💖 Yayyy ${yourName}! I knew it 😍💖
-    </h1>
-    
-    <img src="letter1.png" style="
-      width: 80%;
-      max-width: 400px;
-      height: auto;
-      border-radius: 20px;
-      object-fit: cover;" 
-      alt="Valentine Letter">
-  </div>
-`;
+  // Replace body content
+  document.body.innerHTML = `
+    <div style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #ff9a9e;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;">
+      
+      <h1 style="
+        font-size: 1.5rem;
+        color: white;
+        margin-bottom: 20px;
+        line-height: 1.3;">
+        💖 Yayyy ${yourName}! I knew it 😍💖
+      </h1>
+      
+      <img src="letter1.png" style="
+        width: 80%;
+        max-width: 400px;
+        height: auto;
+        border-radius: 20px;
+        object-fit: cover;" 
+        alt="Valentine Letter">
+      
+      <!-- Video Button -->
+      <button id="playVideoBtn" style="
+        margin-top: 20px;
+        padding: 12px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        background: #ff4d6d;
+        color: white;">
+        🎬 Watch Video
+      </button>
+      
+      <!-- Video container (hidden initially) -->
+      <div id="videoContainer" style="margin-top: 20px; display: none;">
+        <video width="80%" max-width="400" controls>
+          <source src="your-video.mp4" type="video/mp4">
+          Your browser does not support HTML video.
+        </video>
+      </div>
+    </div>
+  `;
+
+  // Video button click
+  document.getElementById("playVideoBtn").addEventListener("click", () => {
+    document.getElementById("videoContainer").style.display = "block";
+    document.getElementById("playVideoBtn").style.display = "none"; // hide button
+  });
 }
 </script>
 
