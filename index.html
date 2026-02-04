@@ -207,7 +207,238 @@ function yesClick() {
         cursor: pointer;
         background: #ff4d6d;
         color: white;">
-        🎬 Watch Video
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
+  position: relative;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 350px;
+  position: relative;
+}
+
+h1 {
+  color: #ff4d6d;
+  margin-bottom: 25px;
+}
+
+button {
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.yes {
+  background: #ff4d6d;
+  color: white;
+  transition: all 0.3s;
+}
+
+.yes:hover {
+  animation: pulse 1s infinite;
+}
+
+.no {
+  background: #ddd;
+  position: absolute;
+  left: 20px;
+  top: 130px;
+}
+
+/* Pulse animation for Yes button */
+@keyframes pulse {
+  0% { transform: scale(1); background: #ff4d6d; }
+  50% { transform: scale(1.1); background: #ff1a4d; }
+  100% { transform: scale(1); background: #ff4d6d; }
+}
+
+/* Confetti fall animation */
+@keyframes fall {
+  to { transform: translateY(100vh); opacity: 0; }
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  font-size: 20px;
+  color: red;
+  opacity: 0.8;
+  pointer-events: none;
+  animation: floatUp 4s linear forwards;
+}
+
+/* Floating balloons (dark red and rose) */
+.balloon {
+  position: absolute;
+  font-size: 25px;
+  opacity: 0.9;
+  pointer-events: none;
+  animation: rise 6s linear forwards;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100vh) scale(1); opacity: 0.8; }
+  100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+}
+
+@keyframes rise {
+  0% { transform: translateY(100vh); }
+  100% { transform: translateY(-50px); }
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>💘 <span id="name"></span>, will you be my Valentine? 💘</h1>
+  <button class="yes" onclick="yesClick()">Yes ❤️</button>
+  <button class="no" id="noBtn">No 😢</button>
+</div>
+
+<script>
+const yourName = "Rahul"; // Change your name here
+document.getElementById("name").innerText = yourName;
+
+// "No" button dodge
+const noBtn = document.getElementById("noBtn");
+function moveButton() {
+  const maxX = window.innerWidth - noBtn.offsetWidth;
+  const maxY = window.innerHeight - noBtn.offsetHeight;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+  noBtn.style.transform = `rotate(${Math.random()*360}deg)`;
+}
+noBtn.addEventListener("mouseover", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
+
+// Floating red hearts continuously
+setInterval(() => {
+  const heart = document.createElement('div');
+  heart.innerText = '❤️';
+  heart.className = 'heart';
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.fontSize = (10 + Math.random() * 30) + 'px';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 4000);
+}, 300);
+
+// Floating dark red and rose balloons continuously
+setInterval(() => {
+  const balloon = document.createElement('div');
+  balloon.className = 'balloon';
+  balloon.innerText = Math.random() > 0.5 ? '🎈' : '🌹';
+  balloon.style.color = Math.random() > 0.5 ? '#8B0000' : '#FF69B4'; // dark red or rose
+  balloon.style.left = Math.random() * window.innerWidth + 'px';
+  balloon.style.fontSize = (20 + Math.random() * 30) + 'px';
+  document.body.appendChild(balloon);
+  setTimeout(() => balloon.remove(), 6000);
+}, 500);
+
+// Yes button click
+function yesClick() {
+  // Confetti effect
+  for(let i=0;i<100;i++){
+    const confetti = document.createElement('div');
+    confetti.style.position = 'absolute';
+    confetti.style.width = confetti.style.height = Math.random()*10 + 'px';
+    confetti.style.background = `hsl(${Math.random()*360},100%,50%)`;
+    confetti.style.top = '0px';
+    confetti.style.left = Math.random()*window.innerWidth + 'px';
+    confetti.style.borderRadius = '50%';
+    confetti.style.opacity = 0.7;
+    confetti.style.animation = `fall ${2+Math.random()*2}s linear forwards`;
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 4000);
+  }
+
+  // Replace body content
+  document.body.innerHTML = `
+    <div style="
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #ff9a9e;
+      text-align: center;
+      padding: 20px;
+      box-sizing: border-box;">
+      
+      <h1 style="
+        font-size: 1.5rem;
+        color: white;
+        margin-bottom: 20px;
+        line-height: 1.3;">
+        💖 Yayyy ${yourName}! I knew it 😍💖
+      </h1>
+      
+      <img src="letter1.png" style="
+        width: 80%;
+        max-width: 400px;
+        height: auto;
+        border-radius: 20px;
+        object-fit: cover;" 
+        alt="Valentine Letter">
+      
+      <!-- Video Button -->
+      <button id="playVideoBtn" style="
+        margin-top: 20px;
+        padding: 12px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        background: #ff4d6d;
+        color: white;">
+        🎬 YOU & ME
+      </button>
+      
+      <!-- Video container (hidden initially) -->
+      <div id="videoContainer" style="margin-top: 20px; display: none;">
+        <video width="80%" max-width="400" controls>
+          <source src="your-video.mp4" type="video/mp4">
+          Your browser does not support HTML video.
+        </video>
+      </div>
+    </div>
+  `;
+
+  // Video button click
+  document.getElementById("playVideoBtn").addEventListener("click", () => {
+    document.getElementById("videoContainer").style.display = "block";
+    document.getElementById("playVideoBtn").style.display = "none"; // hide button
+  });
+}
+</script>
+
+</body>
+</html>
       </button>
       
       <!-- Video container (hidden initially) -->
