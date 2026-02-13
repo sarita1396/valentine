@@ -5,134 +5,70 @@
 <title>Valentine 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body {
-  margin: 0;
-  height: 100vh;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
-  position: relative;
-}
-
-.card {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  width: 90%;
-  max-width: 350px;
-  position: relative;
-}
-
-h1 {
-  color: #ff4d6d;
-  margin-bottom: 25px;
-}
-
-button {
-  padding: 12px 25px;
-  font-size: 16px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-}
-
-.yes {
-  background: #ff4d6d;
-  color: white;
-  transition: all 0.3s;
-}
-
-.yes:hover {
-  animation: pulse 1s infinite;
-}
-
-.no {
-  background: #ddd;
-  position: absolute;
-  left: 20px;
-  top: 130px;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); background: #ff4d6d; }
-  50% { transform: scale(1.1); background: #ff1a4d; }
-  100% { transform: scale(1); background: #ff4d6d; }
-}
-
-.heart {
-  position: absolute;
-  font-size: 20px;
-  color: red;
-  opacity: 0.8;
-  pointer-events: none;
-  animation: floatUp 4s linear forwards;
-}
-
-.balloon {
-  position: absolute;
-  font-size: 25px;
-  opacity: 0.9;
-  pointer-events: none;
-  animation: rise 6s linear forwards;
-}
-
-@keyframes floatUp {
-  0% { transform: translateY(100vh) scale(1); opacity: 0.8; }
-  100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
-}
-
-@keyframes rise {
-  0% { transform: translateY(100vh); }
-  100% { transform: translateY(-50px); }
-}
-
-@keyframes fall {
-  to { transform: translateY(100vh); opacity: 0; }
-}
-
-/* Modal container */
-#videoModal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.8);
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
-
-#videoModal video {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 15px;
-}
-
-#closeModal {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  font-size: 30px;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-}
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+    position: relative;
+  }
+  .card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 350px;
+    position: relative;
+  }
+  h1 { color: #ff4d6d; margin-bottom: 25px; }
+  button {
+    padding: 12px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+  }
+  .yes { background: #ff4d6d; color: white; transition: all 0.3s; }
+  .yes:hover { animation: pulse 1s infinite; }
+  .no { background: #ddd; position: absolute; left: 20px; top: 130px; }
+  @keyframes pulse {
+    0% { transform: scale(1); background: #ff4d6d; }
+    50% { transform: scale(1.1); background: #ff1a4d; }
+    100% { transform: scale(1); background: #ff4d6d; }
+  }
+  .heart { position: absolute; font-size: 20px; color: red; opacity: 0.8; pointer-events: none; animation: floatUp 4s linear forwards; }
+  .balloon { position: absolute; font-size: 25px; opacity: 0.9; pointer-events: none; animation: rise 6s linear forwards; }
+  @keyframes floatUp { 0% { transform: translateY(100vh) scale(1); opacity: 0.8; } 100% { transform: translateY(-50px) scale(1.5); opacity: 0; } }
+  @keyframes rise { 0% { transform: translateY(100vh); } 100% { transform: translateY(-50px); } }
+  @keyframes fall { to { transform: translateY(100vh); opacity: 0; } }
+  #videoModal {
+    display: none;
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  #videoModal video { max-width:90%; max-height:90%; border-radius:15px; }
+  #closeModal { position:absolute; top:20px; right:30px; font-size:30px; color:white; cursor:pointer; font-weight:bold; }
 </style>
 </head>
 <body>
 
 <div class="card">
   <h1>💘 <span id="name"></span>, will you be my Valentine? 💘</h1>
-  <button class="yes" onclick="yesClick()">Yes ❤️</button>
+<button class="yes" id="yesBtn">Yes ❤️</button>
   <button class="no" id="noBtn">No 😢</button>
 </div>
 
-<!-- Video modal -->
 <div id="videoModal">
   <span id="closeModal">&times;</span>
   <video controls>
@@ -142,10 +78,10 @@ button {
 </div>
 
 <script>
-const yourName = "Rahul"; // Change your name here
+const yourName = "Rahul"; // Change your name
 document.getElementById("name").innerText = yourName;
 
-// No button dodge
+// NO button dodge
 const noBtn = document.getElementById("noBtn");
 function moveButton() {
   const maxX = window.innerWidth - noBtn.offsetWidth;
@@ -182,7 +118,7 @@ setInterval(() => {
   setTimeout(() => balloon.remove(), 6000);
 }, 500);
 
-// Yes button click
+// YES click
 function yesClick() {
   // Confetti
   for(let i=0;i<100;i++){
@@ -199,36 +135,165 @@ function yesClick() {
     setTimeout(() => confetti.remove(), 4000);
   }
 
-  // Replace card content
+  // Replace card with video + compatibility button
   document.body.innerHTML = `
-    <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background: #ff9a9e; text-align: center; padding: 20px; box-sizing: border-box;">
+    <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; background:#ff9a9e; text-align:center; padding:20px; box-sizing:border-box;">
       <h1 style="font-size:1.5rem; color:white; margin-bottom:20px;">💖 Yayyy ${yourName}! I knew it 😍💖</h1>
-      <img src="letter1.png" style="width:80%; max-width:400px; height:auto; border-radius:20px; object-fit:cover;" alt="Valentine Letter">
-      <button id="playVideoBtn" style="margin-top:20px; padding:12px 25px; font-size:16px; border:none; border-radius:25px; cursor:pointer; background:#ff4d6d; color:white;">🎬 Watch Video</button>
+      <img src="letter1.png" style="width:80%; max-width:400px; height:auto; border-radius:20px; object-fit:cover;" alt="Valentine Letter"> 
+      <button id="playVideoBtn" style="margin-top:20px; padding:12px 25px; font-size:16px; border:none; border-radius:25px; cursor:pointer; background:#ff4d6d; color:white;">Play our Love Song 💖</button>
+      <button id="compatibilityBtn" style="margin-top:15px; padding:12px 25px; font-size:16px; border:none; border-radius:25px; cursor:pointer; background:#ffd700; color:black;">💌 Soulmate Frequency</button>
     </div>
     <div id="videoModal">
       <span id="closeModal">&times;</span>
-      <audio src="srv.mpeg" controls></audio>
-
+       <audio src="srv.mpeg" controls></audio>
     </div>
   `;
 
-  // Show video modal
+  // Video modal
   const modal = document.getElementById("videoModal");
   const btn = document.getElementById("playVideoBtn");
   const close = document.getElementById("closeModal");
-
   btn.addEventListener("click", () => {
     modal.style.display = "flex";
     modal.querySelector("video").play();
   });
-
   close.addEventListener("click", () => {
     modal.style.display = "none";
     modal.querySelector("video").pause();
   });
-}
-</script>
 
+  // Compatibility form
+  const compBtn = document.getElementById("compatibilityBtn");
+  compBtn.addEventListener("click", () => {
+    if (!document.getElementById('compatibilityContainer')) {
+      const container = document.createElement('div');
+      container.id = 'compatibilityContainer';
+      container.style.cssText = `
+        display:flex; 
+        flex-direction:column; 
+        justify-content:flex-start; 
+        align-items:center; 
+        background:#ff9a9e; 
+        padding:20px 10px 40px 10px; 
+        box-sizing:border-box; 
+        min-height:100vh; 
+        max-height:100vh; 
+        overflow-y:auto;
+      `;
+      
+      container.innerHTML = `
+        <h1 style="color:white; margin-bottom:20px;">💖 Vibe Check ✅💖</h1>
+        <form id="romanticForm" style="
+          width:100%; 
+          max-width:400px; 
+          display:flex; 
+          flex-direction:column; 
+          gap:15px; 
+          background:white; 
+          padding:20px; 
+          border-radius:15px; 
+          box-shadow:0 5px 15px rgba(0,0,0,0.2);
+        ">
+          <label for="userName">Your Name:</label>
+          <input type="text" id="userName" required style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%;">
+
+          <label for="partnerName">Partner's Name:</label>
+          <input type="text" id="partnerName" required style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%;">
+
+          <label for="memory">Favorite Memory Together:</label>
+          <textarea id="memory" rows="3" placeholder="Write a cute memory..." required style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%; resize:none;"></textarea>
+         
+          <label>Rate this memory (1-5):</label>
+          <select id="rateMemory" style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%;">
+            <option value="1">1 😐</option>
+            <option value="2">2 🙂</option>
+            <option value="3">3 😍</option>
+            <option value="4">4 🥰</option>
+            <option value="5">5 💖</option>
+          </select>
+          
+          <label for="food">Favorite dish or food?</label>
+          <textarea id="food" rows="3" required style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%; resize:none;"></textarea>
+          <select id="ratefood" style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%;">
+            <option value="1">1 😐</option>
+            <option value="2">2 🙂</option>
+            <option value="3">3 😍</option>
+            <option value="4">4 🥰</option>
+            <option value="5">5 💖</option>
+          </select>
+
+          <label for="Travel">Dream travel destination?</label>
+          <textarea id="Travel" rows="3" required style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%; resize:none;"></textarea>
+<select id="rateTravel" style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%;">
+            <option value="1">1 😐</option>
+            <option value="2">2 🙂</option>
+            <option value="3">3 😍</option>
+            <option value="4">4 🥰</option>
+            <option value="5">5 💖</option>
+          </select>
+
+<label for="relationship">what things matter most to sarita in a relationship?</label>
+          <textarea id="relationship" rows="3" required style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%; resize:none;"></textarea>
+<select id="raterelationship" style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%;">
+            <option value="1">1 😐</option>
+            <option value="2">2 🙂</option>
+            <option value="3">3 😍</option>
+            <option value="4">4 🥰</option>
+            <option value="5">5 💖</option>
+          </select>
+
+
+<label for="future">what future plans does sarita want a build together?</label>
+          <textarea id="future" rows="3" required style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%; resize:none;"></textarea>
+<select id="ratefuture" style="padding:10px; border-radius:8px; border:1px solid #ccc; width:100%;">
+            <option value="1">1 😐</option>
+            <option value="2">2 🙂</option>
+            <option value="3">3 😍</option>
+            <option value="4">4 🥰</option>
+            <option value="5">5 💖</option>
+          </select>
+         
+         
+          <button type="submit" style="padding:12px; border:none; border-radius:25px; background:#ff4d6d; color:white; cursor:pointer; font-size:16px; margin-top:10px;">Check Your Love Sync 💕</button>
+        </form>
+        <div class="result" id="result" style="display:none; text-align:center; margin-top:20px;">
+          <h3 id="resultText"></h3>
+          <div class="hearts" id="hearts" style="font-size:2rem;"></div>
+        </div>
+
+
+
+
+`;
+
+  document.body.appendChild(container);
+
+      // Compatibility calculation
+      document.getElementById('romanticForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        let rateMemory = parseInt(document.getElementById('rateMemory').value);
+        let ratefood = parseInt(document.getElementById('ratefood').value);
+        let rateTravel = parseInt(document.getElementById('rateTravel').value);
+        let raterelationship = parseInt(document.getElementById('raterelationship').value);
+            let ratefuture = parseInt(document.getElementById('ratefuture').value);
+
+        let totalScore = rateMemory + ratefood + rateTravel + raterelationship + ratefuture ;
+        let percentage = (totalScore/20)*100;
+        let name = document.getElementById('userName').value;
+        let partnerName = document.getElementById('partnerName').value;
+        document.getElementById('result').style.display='block';
+document.getElementById('resultText').innerText =
+"💖 " + name + " & " + partnerName +
+" Love Compatibility: " +
+percentage.toFixed(2) + "% 💖";        let heartsCount = Math.round(percentage/20);
+        document.getElementById('hearts').innerHTML = '❤️'.repeat(heartsCount);
+      });
+    }
+  });
+}
+document.getElementById("yesBtn").addEventListener("click", yesClick);
+
+
+</script>
 </body>
 </html>
